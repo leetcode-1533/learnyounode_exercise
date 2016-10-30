@@ -65,12 +65,45 @@ Filtered LS
 /*
     Http collect
  */
+// var bl = require('bl')
+// var http = require('http')
+//
+// http.get(process.argv[2], function(response) {
+//     response.pipe(bl(function(err, data){
+//         console.log(data.length);
+//         console.log(data.toString())
+//     }))
+// })
+/*
+ASYNC
+ */
 var bl = require('bl')
 var http = require('http')
+var listUrls = process.argv.slice(2);
+var temp = 0
+container = []
 
-http.get(process.argv[2], function(response) {
-    response.pipe(bl(function(err, data){
-        console.log(data.length);
-        console.log(data.toString())
-    }))
-})
+for (var i = 0; i < listUrls.length; i++) {
+    urlpath = listUrls[i]
+
+    http.get(urlpath, function(response) {
+        response.setEncoding('utf8')
+        response.pipe(bl(function(err, data) {
+            container[i] = data;
+            temp++;
+        }))
+        console.log(container)
+        // re_count = 0
+        // for(var j = 0; j < 3; j++) {
+        //     console.log(container)
+        //     if(container[j] != null)
+        //         re_count++;
+        // }
+        // console.log(re_count)
+        // if(re_count == 3) {
+        //     container.forEach(function(data){
+        //         console.log(data.toString());
+        //     })
+        // }
+    })
+}
