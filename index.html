@@ -10,8 +10,9 @@
     <div ng-repeat = "post in posts | orderBy: '-upvote'">
         post: {{post.title}}
         upvote: {{post.upvote}}
+        <span ng-click="incrementUpvotes(post)">^</span>
     </div>
-    <button ng-click="addPost()">Post</button>
+    <!--<button ng-click="addPost()">Post</button>-->
 
     <form ng-submit="addPost()">
         <input type="text" ng-model="title"></input>

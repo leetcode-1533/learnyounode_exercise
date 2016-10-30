@@ -18,5 +18,8 @@ app.controller("Controller", [
             $scope.posts.push({title: $scope.title, upvote: 0});
             $scope.title = ""
         }
+        $scope.incrementUpvotes = function(post) {
+            post.upvote += 1;
+        }
     }
 ]);
