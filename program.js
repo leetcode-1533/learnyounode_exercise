@@ -42,11 +42,22 @@ Filtered LS
 /*/
  Modularized
  */
+//
+// var mymodule = require('./module.js')
+//
+// mymodule(process.argv[2], process.argv[3], function(error, data){
+//    data.forEach(function(filtered_file) {
+//        console.log(filtered_file)
+//    });
+// });
 
-var mymodule = require('./module.js')
-
-mymodule(process.argv[2], process.argv[3], function(error, data){
-   data.forEach(function(filtered_file) {
-       console.log(filtered_file)
-   });
+/*
+    Http Request
+ */
+var http = require('http')
+http.get(process.argv[2], function(response){
+    response.setEncoding("utf8")
+    response.on("data", function(data) {
+        console.log(data);
+    });
 });
