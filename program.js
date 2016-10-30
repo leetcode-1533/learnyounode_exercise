@@ -27,14 +27,26 @@ fs.readFile(process.argv[2], call_back)
 /*
 Filtered LS
  */
-var fs = require('fs')
-function call_back(error, list) {
-    if (err) return console.error(err)
+// var fs = require('fs')
+// function call_back(error, list) {
+//     if (err) return console.error(err)
+//
+//     list.forEach(function(fi) {
+//         if(fi.endsWith(".".concat(process.argv[3])))
+//             console.log(fi);
+//     });
+// }
+//
+// fs.readdir(process.argv[2], call_back)
 
-    list.forEach(function(fi) {
-        if(fi.endsWith(".".concat(process.argv[3])))
-            console.log(fi);
-    });
-}
+/*/
+ Modularized
+ */
 
-fs.readdir(process.argv[2], call_back)
+var mymodule = require('./module.js')
+
+mymodule(process.argv[2], process.argv[3], function(error, data){
+   data.forEach(function(filtered_file) {
+       console.log(filtered_file)
+   });
+});
