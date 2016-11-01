@@ -65,12 +65,59 @@ Filtered LS
 /*
     Http collect
  */
-var bl = require('bl')
-var http = require('http')
+// var bl = require('bl')
+// var http = require('http')
+//
+// http.get(process.argv[2], function(response) {
+//     response.pipe(bl(function(err, data){
+//         console.log(data.length);
+//         console.log(data.toString())
+//     }))
+// })
+/*
+ASYNC
+ */
+// var bl = require('bl')
+// var http = require('http')
+// var listUrls = process.argv.slice(2);
+// var container = []
+// var temp = 0
+//
+// for (var i = 0; i < listUrls.length; i++) {
+//     (function(i) {
+//         var urlpath = listUrls[i]
+//
+//         http.get(urlpath, (function (response) {
+//             response.setEncoding('utf8')
+//             response.pipe(bl(function (err, data) {
+//                 container[i] = data
+//                 temp++;
+//                 printAll()
+//             }))
+//         }))
+//
+//     })(i);
+// }
+//
+// function printAll(){
+//     if( temp == listUrls.length){
+//         container.forEach(function(data){
+//             console.log(data.toString());
+//         });
+//     }
+// };
 
-http.get(process.argv[2], function(response) {
-    response.pipe(bl(function(err, data){
-        console.log(data.length);
-        console.log(data.toString())
-    }))
-})
+/*
+TCP
+ */
+var net = require('net')
+var strftime = require('strftime')
+var listener = function(socket) {
+    // socket.write(strftime("%F %H:%M", new Date()))
+    socket.end(strftime("%F %H:%M\n", new Date()))
+}
+
+var server = net.createServer(listener);
+console.log("starting server at port " + process.argv[2])
+
+server.listen(process.argv[2])
