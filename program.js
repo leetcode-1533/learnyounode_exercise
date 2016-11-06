@@ -108,16 +108,29 @@ ASYNC
 // };
 
 /*
-TCP
+TCP Time server
  */
-var net = require('net')
-var strftime = require('strftime')
-var listener = function(socket) {
-    // socket.write(strftime("%F %H:%M", new Date()))
-    socket.end(strftime("%F %H:%M\n", new Date()))
+// var net = require('net')
+// var strftime = require('strftime')
+// var listener = function(socket) {
+//     // socket.write(strftime("%F %H:%M", new Date()))
+//     socket.end(strftime("%F %H:%M\n", new Date()))
+// }
+//
+// var server = net.createServer(listener);
+// console.log("starting server at port " + process.argv[2])
+//
+// server.listen(process.argv[2])
+/*
+Http file server
+ */
+var http = require('http')
+var fs = require('fs')
+var callback = function(request, response) {
+    var file_stream = fs.createReadStream(process.argv[3])
+    response.writeHead(200, {'content-type': 'text/plain'})
+    file_stream.pipe(response)
 }
 
-var server = net.createServer(listener);
-console.log("starting server at port " + process.argv[2])
-
+var server = http.createServer(callback)
 server.listen(process.argv[2])
