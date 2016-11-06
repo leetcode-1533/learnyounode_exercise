@@ -12,7 +12,7 @@ app.get('/musician/:name', function(req, res) {
     // Get /musician/Matt
     console.log(req.params.name)
     // => Matt
-    res.writeheadq
+    // res.writeHead(200, { 'Content-Type': 'application/json' })
     res.send('{"id": 1,"name":"Matt", "band":"BBQ Brawlers"}');
 });
 
