@@ -31,7 +31,14 @@ app.controller("Controller", [
 
         $scope.addPost = function(){
             if(!$scope.title || $scope.title=== ' '){return};
-            $scope.posts.push({title: $scope.title, upvote: 0, link: $scope.link});
+            $scope.posts.push({title: $scope.title,
+                upvote: 0,
+                link: $scope.link,
+                comments: [
+                    {author: 'Joe', body: 'Cool post!', upvotes: 0},
+                    {author: 'Bob', body: 'Great idea but everything is wrong!', upvotes: 0}
+                ]
+            });
             $scope.title = ""
             $scope.link =""
         }
@@ -40,3 +47,40 @@ app.controller("Controller", [
         }
     }
 ]);
+
+app.controller('PostCtrl', [
+    '$scope',
+    '$stateParams',
+    'posts',
+    function($scope, $stateParams, posts) {
+        $scope.post = posts.posts[$stateParams.id]
+
+        $scope.addComment = function(){
+            if($scope.body === '') { return; }
+            $scope.post.comments.push({
+                body: $scope.body,
+                author: 'user',
+                upvotes: 0
+            });
+            $scope.body = '';
+        };
+    }
+])
+app.config([
+    '$stateProvider',
+    'urlRouterProvider',
+    function($stateProvider, $urlRouterProvider) {
+        $stateProvider
+            .state('home', {
+                url: '/home',
+                templateUrl: '/home.html',
+                controller: 'Controller'
+            })
+            .state('posts', {
+                url: '/posts/{id}',
+                templateUrl: '/posts.html',
+                controller:'PostCtrl'
+            });
+        $urlRouterProvider.otherwise('home');
+    }
+])
