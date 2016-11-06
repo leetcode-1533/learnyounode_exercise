@@ -124,13 +124,25 @@ TCP Time server
 /*
 Http file server
  */
+// var http = require('http')
+// var fs = require('fs')
+// var callback = function(request, response) {
+//     var file_stream = fs.createReadStream(process.argv[3])
+//     response.writeHead(200, {'content-type': 'text/plain'})
+//     file_stream.pipe(response)
+// }
+//
+// var server = http.createServer(callback)
+// server.listen(process.argv[2])
+/*
+Http uppercase server
+ */
 var http = require('http')
-var fs = require('fs')
+var map = require('through2-map')
 var callback = function(request, response) {
-    var file_stream = fs.createReadStream(process.argv[3])
-    response.writeHead(200, {'content-type': 'text/plain'})
-    file_stream.pipe(response)
+    request.pipe(map(function (chunk) {
+        return chunk.toString().toUpperCase()
+    })).pipe(response)
 }
-
 var server = http.createServer(callback)
 server.listen(process.argv[2])
