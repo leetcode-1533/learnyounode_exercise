@@ -13,7 +13,7 @@ app.get('/musician/:name', function(req, res) {
     console.log(req.params.name)
     // => Matt
     // res.writeHead(200, { 'Content-Type': 'application/json' })
-    res.send('{"id": 1,"name":"Matt", "band":"BBQ Brawlers"}');
+    res.status(200).send('{"id": 1,"name":"Matt", "band":"BBQ Brawlers"}');
 });
 
 app.listen(8000)
