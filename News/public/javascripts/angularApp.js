@@ -68,8 +68,9 @@ app.controller('PostCtrl', [
 ])
 app.config([
     '$stateProvider',
-    'urlRouterProvider',
+    '$urlRouterProvider',
     function($stateProvider, $urlRouterProvider) {
+
         $stateProvider
             .state('home', {
                 url: '/home',
@@ -79,8 +80,8 @@ app.config([
             .state('posts', {
                 url: '/posts/{id}',
                 templateUrl: '/posts.html',
-                controller:'PostCtrl'
+                controller: 'PostCtrl'
             });
+
         $urlRouterProvider.otherwise('home');
-    }
-])
+    }])
