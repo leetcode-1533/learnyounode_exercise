@@ -4,18 +4,30 @@
 // var angular = require('angular')
 // angular.module('News', )
 var app = angular.module('News', ['ui.router']);
-var factory_function = function() {
-    var object = {
-        posts:[
-            // {title: 'post1', upvote: 3},
-            // {title: 'post2', upvote: 2},
-            // {title: 'post3', upvote: 3}
-        ]
-    }
-    return object;
-}
+app.service('posts_factory', function($http) {
+    var _posts = []
+    this.posts = _posts;
 
-app.factory('posts_factory', [factory_function])
+    this.getAll = function() {
+        return $http.get('/posts').success(function(data) {
+            angular.copy(data, _posts);
+        });
+    };
+});
+// var factory_function = function($http) {
+//     var object = {
+//         posts:[]
+//     }
+//
+//     object.getAll = function() {
+//         return $http.get('/posts').success(function(data){
+//             angular.copy(data, object.posts);
+//         });
+//     };
+//     return object;
+// }
+//
+// app.factory('posts_factory', ['$http', factory_function])
 // scope: variable in html
 app.controller("Controller", [
     '$scope',
@@ -77,7 +89,18 @@ app.config([
             .state('home', {
                 url: '/home',
                 templateUrl: '/home.html',
-                controller: 'Controller'
+                controller: 'Controller',
+                resolve: {
+                    postPromise: ['posts_factory', function(posts_factory){
+                        return posts_factory.getAll();
+                    }]
+                }
+                // before controller, a list of promise
+                // resolve: {
+                //     postPromise:['posts', function(posts){
+                //         return posts.getAll();
+                //     }]
+                // }
             })
             .state('posts', {
                 url: '/posts/{id}',
