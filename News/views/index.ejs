@@ -46,7 +46,25 @@
         <button type="submit" class="btn btn-primary">Post</button>
       </form>
   </script>
-  
+
+  <script type="text/ng-template" id="/quiz.html">
+        <li ng-repeat="question in questions">
+            {{ question.questionText }}
+            <ul  id="quest_{{$parent.$index}}">
+              <li ng-repeat="answer in question.answers">
+              <label class="isCorrect_{{answer.selected}}" for="quest_{{$parent.$index}}_answer_{{$index}}">
+              <input type="radio" id="quest_{{$parent.$index}}_answer_{{$index}}"
+                     ng-model="answers[$parent.$index]" value="{{ answer.answerText }}"  name="quest_{{$parent.$index}}_answers" />
+                  {{ answer.answerText }}
+              </label>
+              </li>
+            </ul>
+        </li>
+        <button class="btn" type="submit" ng:click="showResult()">Submit</button>
+        <div class="well">
+        <p>you got {{ correctCount }} out of {{questions.length}} right</p>
+  </script>
+
   <script type="text/ng-template" id="/posts.html">
     <div class="page-header">
       <h3>
@@ -97,6 +115,7 @@
   <script src="javascripts/services/postService.js"></script>
   <script src="javascripts/controllers/mainController.js"></script>
   <script src="javascripts/controllers/postController.js"></script>
+  <script src="javascripts/controllers/quizController.js"></script>
   <script src="javascripts/config/routes.js"></script>
 </body>
 </html>
