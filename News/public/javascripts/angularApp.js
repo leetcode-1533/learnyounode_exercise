@@ -5,18 +5,17 @@
 // angular.module('News', )
 var app = angular.module('News', ['ui.router']);
 
-var factory_function = function($http) {
-    var _posts = [];
+app.service('posts_factory', function($http) {
+    var _posts = []
     this.posts = _posts;
 
     this.getAll = function() {
-        return $http.get('/posts').success(function(data){
+        return $http.get('/posts').success(function(data) {
             angular.copy(data, _posts);
         });
     };
-}
+});
 
-app.service('posts_factory', factory_function)
 // scope: variable in html
 app.controller("Controller", [
     '$scope',
@@ -80,8 +79,8 @@ app.config([
                 templateUrl: '/home.html',
                 controller: 'Controller',
                 resolve: {
-                    postPromise:['posts', function(posts) {
-                        return posts.getAll();
+                    postPromise: ['posts_factory', function (posts_factory) {
+                        return posts_factory.getAll();
                     }]
                 }
             })
