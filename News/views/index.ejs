@@ -8,7 +8,7 @@
   <script type="text/ng-template" id="/home.html">
       <div class="page-header">
         <h1>Flapper News</h1>
-      </div>     
+      </div>
 
       <div ng-repeat="post in posts | orderBy:'-upvotes'">
         <span class="glyphicon glyphicon-thumbs-up"
@@ -85,7 +85,7 @@
         {{comment.body}}
       </span>
     </div>
-    
+
     <form ng-submit="addComment()"
       style="margin-top:30px;">
       <h3>Add a new comment</h3>
@@ -99,12 +99,12 @@
       <button type="submit" class="btn btn-primary">Post</button>
     </form>
   </script>
-  
+
   <div class="row">
     <div class="col-md-6 col-md-offset-3">
-      
+
       <ui-view></ui-view>
-      
+
     </div>
   </div>
   <!-- External dependencies -->
