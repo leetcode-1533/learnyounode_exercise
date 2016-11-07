@@ -31,4 +31,16 @@ router.get('/posts', function(req, res, next){
   });
 });
 
+router.param('post', function(req, res, next, id){
+  var query = Post.findById(id);
+
+  query.exec(function(err, post){
+    if(err) {return next(err);}
+    if(!post) {return next(new Error('Can\'t find post for id'))}
+
+    req.post = post;
+    return next();
+  });
+});
+
 module.exports = router;
