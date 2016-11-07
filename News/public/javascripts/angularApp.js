@@ -7,9 +7,9 @@ var app = angular.module('News', ['ui.router']);
 var factory_function = function() {
     var object = {
         posts:[
-            {title: 'post1', upvote: 3},
-            {title: 'post2', upvote: 2},
-            {title: 'post3', upvote: 3}
+            // {title: 'post1', upvote: 3},
+            // {title: 'post2', upvote: 2},
+            // {title: 'post3', upvote: 3}
         ]
     }
     return object;
@@ -51,12 +51,14 @@ app.controller("Controller", [
 app.controller('PostCtrl', [
     '$scope',
     '$stateParams',
-    'posts',
-    function($scope, $stateParams, posts) {
-        $scope.post = posts.posts[$stateParams.id]
+    'posts_factory',
+    function($scope, $stateParams, posts_factory){
+        $scope.post = posts_factory.posts[$stateParams.id];
 
         $scope.addComment = function(){
-            if($scope.body === '') { return; }
+            if(!$scope.body) {
+                return;
+            }
             $scope.post.comments.push({
                 body: $scope.body,
                 author: 'user',
@@ -65,7 +67,7 @@ app.controller('PostCtrl', [
             $scope.body = '';
         };
     }
-])
+]);
 app.config([
     '$stateProvider',
     '$urlRouterProvider',
