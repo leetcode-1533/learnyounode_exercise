@@ -13,10 +13,11 @@ var app = express();
 
 // mongodb connection
 var mongo = require('mongoose');
-require('./models/Posts');
-require('./models/Comments');
+mongo.connect('mongodb://localhost:27017/news');
 
-mongo.connect('mongodb://localhost/news');
+require('./models/Comments');
+require('./models/Posts');
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
