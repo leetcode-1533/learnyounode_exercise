@@ -74,7 +74,7 @@ app.config([
     function($stateProvider, $urlRouterProvider) {
 
         $stateProvider
-            .state('home', {
+            .state('home_tk', {
                 url: '/home',
                 templateUrl: '/home.html',
                 controller: 'Controller',
