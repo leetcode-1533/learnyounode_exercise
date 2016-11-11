@@ -14,6 +14,11 @@ app.service('posts_factory', function($http) {
             angular.copy(data, _posts);
         });
     };
+    this.create = function(post) {
+        return $http.post('/posts', post).success(function(data) {
+            this.posts.push(data);
+        });
+    };
 });
 
 // scope: variable in html
@@ -21,26 +26,17 @@ app.controller("Controller", [
     '$scope',
     'posts_factory',
     function($scope, posts_factory){
-
-        // $scope.posts = [
-        //     {title: 'post1', upvote: 3},
-        //     {title: 'post2', upvote: 2},
-        //     {title: 'post3', upvote: 3}
-        // ];
         $scope.posts = posts_factory.posts;
 
         $scope.addPost = function(){
             if(!$scope.title || $scope.title=== ' '){return};
-            $scope.posts.push({title: $scope.title,
+            posts_factory.create({
+                title: $scope.title,
                 upvote: 0,
                 link: $scope.link,
-                comments: [
-                    {author: 'Joe', body: 'Cool post!', upvotes: 0},
-                    {author: 'Bob', body: 'Great idea but everything is wrong!', upvotes: 0}
-                ]
             });
-            $scope.title = ""
-            $scope.link =""
+            $scope.title = "";
+            $scope.link ="";
         }
         $scope.incrementUpvotes = function(post) {
             post.upvote += 1;
@@ -72,7 +68,6 @@ app.config([
     '$stateProvider',
     '$urlRouterProvider',
     function($stateProvider, $urlRouterProvider) {
-
         $stateProvider
             .state('home_tk', {
                 url: '/home',
