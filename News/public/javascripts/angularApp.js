@@ -7,7 +7,9 @@ var app = angular.module('News', ['ui.router']);
 
 app.service('posts_factory', function($http) {
     var _posts = []
+    var _test = {};
     this.posts = _posts;
+    this.test = _test;
 
     this.getAll = function() {
         return $http.get('/posts').success(function(data) {
@@ -19,6 +21,12 @@ app.service('posts_factory', function($http) {
             this.posts.push(data);
         });
     };
+    this.test_func = function() {
+        return $http.get('/test_http').success(function(data) {
+           angular.copy(data, _test);
+            console.log(data[0]);
+        });
+    }
 });
 
 // scope: variable in html
@@ -41,6 +49,16 @@ app.controller("Controller", [
         $scope.incrementUpvotes = function(post) {
             post.upvote += 1;
         }
+    }
+]);
+
+app.controller('test', [
+   '$scope',
+    'posts_factory',
+    function($scope, posts_factory) {
+        $scope.test = posts_factory.test;
+        console.log(posts_factory.test);
+        // $scope.test = posts_factory.test;
     }
 ]);
 
@@ -83,6 +101,16 @@ app.config([
                 url: '/posts/{id}',
                 templateUrl: '/posts.html',
                 controller: 'PostCtrl'
+            })
+            .state('test', {
+                url: '/test',
+                templateUrl: '/test.html',
+                controller: 'test',
+                resolve: {
+                    postPromise: ['posts_factory', function(posts_factory) {
+                        return posts_factory.test_func();
+                    }]
+                }
             });
 
         $urlRouterProvider.otherwise('home');

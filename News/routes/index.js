@@ -10,8 +10,11 @@ router.get('/', function(req, res, next) {
 var mongoose = require('mongoose');
 require('../models/Comments');
 require('../models/Posts');
+require('../models/Quiz');
+
 var Post = mongoose.model('Post');
 var Comment = mongoose.model('Comment');
+var Quiz = mongoose.model('Quiz')
 
 var mysql = require('mysql');
 // var connection = mysql.createConnection({
@@ -24,7 +27,8 @@ var connection = mysql.createConnection({
   host     : 'olympicquiz.cziypygdpbbb.us-west-2.rds.amazonaws.com',
   user     : 'shahanimesh94',
   password : 'shahanimesh94',
-  port     : '3306'
+  port     : '3306',
+  database : 'olympic_quiz'
 });
 
 // function query_list(res) {
@@ -40,20 +44,30 @@ var connection = mysql.createConnection({
 //   });
 // }
 
-router.get('/test', function(req, res) {
-  query = "SELECT DISTINCT gender FROM olympic_quiz.Athlete";
-  connection.query(query, function(err, rows) {
-    if (err) console.log(err);
-    else {
-      // results.
-      res.send({results: rows});
-      // console.log(rows);
-      // res.render('family_index.jade',
-      //     { title: "All Family Login ",
-      //       results: rows }
-      // )
-    }
+router.get('/test_http', function(req, res) {
+  // var test_query;
+
+  Quiz.findOne({"_id": "58263d70444584131d257309"}, function(err, obj) {
+    console.log(obj['question']);
+    connection.query(obj['question'], function (err, rows) {
+          res.send({results: rows});
+        }
+    );
   });
+  // console.log(test_query);
+  // // console.log(quiz);
+  // // query = "SELECT DISTINCT gender FROM olympic_quiz.Athlete";
+  // connection.query(query, function(err, rows) {
+  //   if (err) console.log(err);
+  //   else {
+  //     // results.
+  //     res.send({results: rows});
+  //     // console.log(rows);
+  //     // res.render('family_index.jade',
+  //     //     { title: "All Family Login ",
+  //     //       results: rows }
+  //     // )
+  //   }
 });
 
 router.post('/posts', function(req, res, next) {

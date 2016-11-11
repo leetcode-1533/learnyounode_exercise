@@ -17,7 +17,7 @@ mongo.connect('mongodb://localhost:27017/news');
 
 require('./models/Comments');
 require('./models/Posts');
-
+require('./models/Quiz')
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
