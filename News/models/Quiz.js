@@ -4,8 +4,8 @@
 var mongoose = require('mongoose');
 
 var QuizSchema = new mongoose.Schema({
-    question: String,
-    // sql: String
+    sql_query: String,
+    question: String
     // upvotes: {type: Number, default: 0},
     // comments: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Comment' }]
 });

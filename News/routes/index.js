@@ -48,8 +48,9 @@ router.get('/test_http', function(req, res) {
   // var test_query;
 
   Quiz.findOne({"_id": "58263d70444584131d257309"}, function(err, obj) {
+    console.log(obj['sql_query']);
     console.log(obj['question']);
-    connection.query(obj['question'], function (err, rows) {
+    connection.query(obj['sql_query'], function (err, rows) {
           res.send({results: rows});
         }
     );
