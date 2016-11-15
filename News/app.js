@@ -13,7 +13,7 @@ var app = express();
 
 // mongodb connection
 var mongo = require('mongoose');
-mongo.connect('mongodb://158.130.211.123:27017/news');
+mongo.connect('mongodb://root:root@ds153637.mlab.com:53637/mongodb_cis');
 
 require('./models/Comments');
 require('./models/Posts');

@@ -7,6 +7,5 @@ app.controller('test', [
     function($scope, posts_factory) {
         $scope.test = posts_factory.test;
         console.log(posts_factory.test);
-        // $scope.test = posts_factory.test;
     }
 ]);

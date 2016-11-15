@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var events = require('events');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -14,15 +15,10 @@ require('../models/Quiz');
 
 var Post = mongoose.model('Post');
 var Comment = mongoose.model('Comment');
-var Quiz = mongoose.model('Quiz')
+var Quiz = mongoose.model('Quiz');
 
 var mysql = require('mysql');
-// var connection = mysql.createConnection({
-//   socketPath: '/Applications/MAMP/tmp/mysql/mysql.sock',
-//   user     : 'root',
-//   password : 'y1562348',
-//   database : 'fof'
-// });
+
 var connection = mysql.createConnection({
   host     : 'olympicquiz.cziypygdpbbb.us-west-2.rds.amazonaws.com',
   user     : 'shahanimesh94',
@@ -31,44 +27,40 @@ var connection = mysql.createConnection({
   database : 'olympic_quiz'
 });
 
-// function query_list(res) {
-//   query = "SELECT DISTINCT(login) FROM Family";
-//   connection.query(query, function(err, rows) {
-//     if (err) console.log(err);
-//     else {
-//       res.render('family_index.jade',
-//           { title: "All Family Login ",
-//             results: rows }
-//       )
-//     }
-//   });
-// }
-
 router.get('/test_http', function(req, res) {
-  // var test_query;
+  var EventEmitter = events.EventEmitter;
+  var flowController = new EventEmitter();
 
-  Quiz.findOne({"_id": "58263d70444584131d257309"}, function(err, obj) {
-    console.log(obj['sql_query']);
-    console.log(obj['question']);
+  var tasks = ['1', '2'];
+
+  flowController.on('dowork', function(i) {
+    if (i >= tasks.length) {
+      flowController.emit('finished');
+      return;
+    }
+    Quiz.findOne({"_id": "58263d70444584131d257309"}, function(err, obj) {
+      var temp = obj['sql_query'];
+      flowController.emit('dowork', i+1);
+    })
+
     connection.query(obj['sql_query'], function (err, rows) {
           res.send({results: rows});
-        }
+      }
     );
   });
-  // console.log(test_query);
-  // // console.log(quiz);
-  // // query = "SELECT DISTINCT gender FROM olympic_quiz.Athlete";
-  // connection.query(query, function(err, rows) {
-  //   if (err) console.log(err);
-  //   else {
-  //     // results.
-  //     res.send({results: rows});
-  //     // console.log(rows);
-  //     // res.render('family_index.jade',
-  //     //     { title: "All Family Login ",
-  //     //       results: rows }
-  //     // )
-  //   }
+
+  flowController.on('finished', function () {
+    console.log('finished');
+  });
+  flowController.emit('dowork', 0);
+  // Quiz.findOne({"_id": "58263d70444584131d257309"}, function(err, obj) {
+  //   console.log(obj['sql_query']);
+  //   console.log(obj['question']);
+  //   connection.query(obj['sql_query'], function (err, rows) {
+  //         res.send({results: rows});
+  //       }
+  //   );
+  // });
 });
 
 router.post('/posts', function(req, res, next) {
