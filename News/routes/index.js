@@ -31,28 +31,22 @@ router.get('/test_http', function(req, res) {
   var EventEmitter = events.EventEmitter;
   var flowController = new EventEmitter();
 
-  var tasks = ['1', '2'];
 
-  flowController.on('dowork', function(i) {
-    if (i >= tasks.length) {
-      flowController.emit('finished');
-      return;
-    }
-    Quiz.findOne({"_id": "58263d70444584131d257309"}, function(err, obj) {
-      var temp = obj['sql_query'];
-      flowController.emit('dowork', i+1);
-    })
-
-    connection.query(obj['sql_query'], function (err, rows) {
-          res.send({results: rows});
-      }
-    );
+  flowController.on('dowork', function(sqlquery) {
+    connection.query(sqlquery, function (err, rows) {
+      res.send({results: rows});
+    });
   });
+
+  Quiz.findOne({"_id": "58263d70444584131d257309"}, function(err, obj) {
+    var temp = obj['sql_query'];
+    flowController.emit('dowork', temp);
+  })
 
   flowController.on('finished', function () {
     console.log('finished');
   });
-  flowController.emit('dowork', 0);
+
   // Quiz.findOne({"_id": "58263d70444584131d257309"}, function(err, obj) {
   //   console.log(obj['sql_query']);
   //   console.log(obj['question']);
