@@ -97,6 +97,24 @@
 </script>
 
 <script type="text/ng-template" id="/quiz.html">
+    <form ng-submit="addQuiz()"
+          style="margin-top:30px;">
+        <h3>Add a new Question</h3>
+        <div class="form-group">
+            <input type="text"
+                   class="form-control"
+                   placeholder="Question"
+                   ng-model="question"/>
+        </div>
+        <div class="form-group">
+            <input type="text"
+                   class="form-control"
+                   placeholder="SQL"
+                   ng-model="sql"/>
+        </div>
+        <button type="submit" class="btn btn-primary">Upload</button>
+    </form>
+
     <li ng-repeat="question in questions">
         {{ question.questionText }}
         <ul  id="quest_{{$parent.$index}}">
@@ -130,6 +148,7 @@
 <script src="javascripts/controllers/testcontroller.js"></script>
 <script src="javascripts/controllers/postcontroller.js"></script>
 <script src="javascripts/controllers/maincontroller.js"></script>
+<script src="javascripts/quiz_service.js"></script>
 <script src="javascripts/service.js"></script>
 <script src="javascripts/configure.js"></script>
 </body>

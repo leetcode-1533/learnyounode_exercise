@@ -16,7 +16,7 @@ app.controller("Controller", [
             });
             $scope.title = "";
             $scope.link ="";
-        }
+        };
         $scope.incrementUpvotes = function(post) {
             post.upvote += 1;
         }

@@ -4,6 +4,7 @@
 
 app.controller('QuizCtrl', [
     '$scope',
+    'quiz_service',
     function($scope){
         $scope.questions = [
             {"questionText": "Why is the sky blue?", "answers": [
@@ -48,6 +49,19 @@ app.controller('QuizCtrl', [
                     }
                 }
             }
+        };
+        $scope.addQuiz = function(){
+            if(!$scope.question || $scope.question=== ' '){return};
+
+            var quiz = {
+                question: $scope.question,
+                sql: $scope.sql
+            };
+
+            console.log(quiz);
+
+            $scope.question = "";
+            $scope.sql ="";
         };
     }
 ]);
