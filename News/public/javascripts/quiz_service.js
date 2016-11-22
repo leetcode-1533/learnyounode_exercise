@@ -6,10 +6,18 @@ app.service('quiz_service', function($http) {
     var _test = {};
 
     this.quiz = _quiz;
+
     this.addquiz = function(quiz) {
         // return $http.post('/addquizs', quiz).success(function(data) {
             // this.quiz.push()
         // });
+    };
+
+    this.getQuiz = function() {
+        $http.get('/quiz_list').success(function(data) {
+            angular.copy(data, _quiz);
+            console.log(data);
+        });
     };
 
     // this.posts = _posts;

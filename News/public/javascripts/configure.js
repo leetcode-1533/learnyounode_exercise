@@ -24,7 +24,12 @@ app.config([
             .state('quiz', {
                 url:'/quiz',
                 templateUrl: '/quiz.html',
-                controller: "QuizCtrl"
+                controller: "QuizCtrl",
+                resolve: {
+                    postPromise: ['quiz_service', function(quiz_service) {
+                        return quiz_service.getQuiz();
+                    }]
+                }
             })
             .state('test', {
                 url: '/test',

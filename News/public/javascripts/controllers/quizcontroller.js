@@ -6,7 +6,10 @@ app.controller('QuizCtrl', [
     '$scope',
     '$http',
     'quiz_service',
-    function($scope, $http){
+    function($scope, $http, quiz_service){
+        $scope.test = quiz_service.quiz;
+        console.log($scope.test);
+
         $scope.questions = [
             {"questionText": "Why is the sky blue?", "answers": [
                 {"answerText":"blah blah 1", "correct": true},
