@@ -15,7 +15,7 @@ require('../models/Quiz');
 
 var MongoClinet = require('mongodb').MongoClient;
 var ObjectId = require('mongodb').ObjectID;
-var url = 'mongodb://localhost:27017/news';
+var url = 'mongodb://kirasev:Kirasev101@ds159237.mlab.com:59237/sqlympics';
 
 var Post = mongoose.model('Post');
 var Comment = mongoose.model('Comment');
@@ -95,43 +95,42 @@ router.get('/posts', function(req, res, next){
   });
 });
 
-var getRandomDocument = function(db, callback) {
-  var questions = db.collection('sqlympics');
+var getRandomDocument = function(db, res, num_questions, callback) {
+  var questions = db.collection('questions');
   var query = {};
   var cursor = questions.find(query);
-  var total, random;
-  var num_questions = 10;
 
-  questions.count(function(err, count) {
-    random = Math.floor(Math.random()*count);
-    cursor.sort({_id : -1});
-    cursor.skip(random);
-    cursor.limit(num_questions);
+  // var total, random;
+    questions.count(function(err, count) {
+      var container = [];
 
-    cursor.each(function(err, doc) {
-      if(err) throw err;
+      var random = Math.floor(Math.random()*count);
+      cursor.sort({_id : -1});
+      cursor.skip(random);
+      cursor.limit(num_questions);
 
-      if(doc == null) {
-        return db.close();
-      }
+      cursor.each(function(err, item) {
+        if(err) throw err;
 
-      console.log(doc);
-    });
+        if(item == null) {
+          res.send(container);
+          return db.close();
+        }
 
-    callback();
+        container.push(item);
+
+        callback();
+      });
   });
 };
 
 router.get('/quiz_list', function(req, res, next) {
   MongoClinet.connect(url, function(err, db) {
     if (err) throw err;
-    console.log('test');
-    res.send('res test');
-    res.end();
-    db.close();
-    // getRandomDocument(db, function() {
-    //   db.close();
-    // });
+
+    getRandomDocument(db, res, 3, function() {
+      // This is the callback function
+    });
   });
 });
 
