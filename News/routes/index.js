@@ -86,11 +86,52 @@ router.post('/addquiz', function(req, res, next) {
   });
 });
 
+
 router.get('/posts', function(req, res, next){
   Post.find(function(err, posts){
     if(err){return next(err); }
 
     res.json(posts);
+  });
+});
+
+var getRandomDocument = function(db, callback) {
+  var questions = db.collection('sqlympics');
+  var query = {};
+  var cursor = questions.find(query);
+  var total, random;
+  var num_questions = 10;
+
+  questions.count(function(err, count) {
+    random = Math.floor(Math.random()*count);
+    cursor.sort({_id : -1});
+    cursor.skip(random);
+    cursor.limit(num_questions);
+
+    cursor.each(function(err, doc) {
+      if(err) throw err;
+
+      if(doc == null) {
+        return db.close();
+      }
+
+      console.log(doc);
+    });
+
+    callback();
+  });
+};
+
+router.get('/quiz_list', function(req, res, next) {
+  MongoClinet.connect(url, function(err, db) {
+    if (err) throw err;
+    console.log('test');
+    res.send('res test');
+    res.end();
+    db.close();
+    // getRandomDocument(db, function() {
+    //   db.close();
+    // });
   });
 });
 
