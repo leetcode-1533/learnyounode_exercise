@@ -4,8 +4,9 @@
 
 app.controller('QuizCtrl', [
     '$scope',
+    '$http',
     'quiz_service',
-    function($scope){
+    function($scope, $http){
         $scope.questions = [
             {"questionText": "Why is the sky blue?", "answers": [
                 {"answerText":"blah blah 1", "correct": true},
@@ -58,7 +59,11 @@ app.controller('QuizCtrl', [
                 sql: $scope.sql
             };
 
-            console.log(quiz);
+            // console.log(quiz);
+
+            $http.post('/addquiz', quiz).then(function(data) {
+                console.log(data);
+            });
 
             $scope.question = "";
             $scope.sql ="";

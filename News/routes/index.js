@@ -13,6 +13,10 @@ require('../models/Comments');
 require('../models/Posts');
 require('../models/Quiz');
 
+var MongoClinet = require('mongodb').MongoClient;
+var ObjectId = require('mongodb').ObjectID;
+var url = 'mongodb://localhost:27017/news';
+
 var Post = mongoose.model('Post');
 var Comment = mongoose.model('Comment');
 var Quiz = mongoose.model('Quiz');
@@ -64,6 +68,21 @@ router.post('/posts', function(req, res, next) {
     if(err){ return next(err); }
 
     res.json(post);
+  });
+});
+
+var insertDocument = function(db, jsondata, callback) {
+  db.collection('quizs').insertOne(jsondata, function(err, result) {
+    console.log("Insertion Success");
+    callback();
+  });
+};
+
+router.post('/addquiz', function(req, res, next) {
+  MongoClinet.connect(url, function(err, db) {
+    insertDocument(db, req.body, function() {
+      db.close();
+    });
   });
 });
 
