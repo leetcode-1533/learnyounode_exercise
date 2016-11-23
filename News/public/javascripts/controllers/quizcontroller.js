@@ -51,3 +51,9 @@ app.controller('quizctrl', [
         $scope.getCurrentQuestion();
     }
 ]);
+
+app.filter('numberToAlphabet', function(){
+    return function(number){
+        return String.fromCharCode(number+65);
+    }
+});
