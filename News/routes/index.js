@@ -31,21 +31,37 @@ var connection = mysql.createConnection({
   database : 'olympic_quiz'
 });
 
-router.get('/test_http', function(req, res) {
+router.get('/test_http', function(req, res, next) {
   var EventEmitter = events.EventEmitter;
   var flowController = new EventEmitter();
+  console.log(req.query.question_id);
 
-
-  flowController.on('dowork', function(sqlquery) {
-    connection.query(sqlquery, function (err, rows) {
-      res.send({results: rows});
+  flowController.on('dowork', function(obj) {
+    connection.query(obj["questionquery"], function (err, row) {
+      connection.query(obj['options'], function (err, options) {
+        if (err) console.log(err);
+        console.log(obj['question']);
+        res.json({"question":obj['question'],
+          "answer":[row[0], options[0],options[1],options[2]]});//options
+      });
     });
   });
 
-  Quiz.findOne({"_id": req.body}, function(err, obj) {
-    var temp = obj['sql_query'];
-    flowController.emit('dowork', temp);
+  MongoClinet.connect(url, function(err, db) {
+    var questions = db.collection('questions');
+    questions.findOne({_id: ObjectId(req.query.question_id)}, function(err, obj) {
+      // console.log(obj['questionquery']);
+      // var temp = obj['questionquery'];
+      // console.log(req.query.question_id);
+      flowController.emit('dowork', obj);
+    })
   })
+
+  // Quiz.findOne({"_id": req.query.question_id}, function(err, obj) {
+  //   // var temp = obj['questionquery'];
+  //   console.log(obj);
+  //   flowController.emit('dowork', obj);
+  // })
 
   flowController.on('finished', function () {
     console.log('finished');

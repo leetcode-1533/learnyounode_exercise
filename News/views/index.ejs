@@ -140,14 +140,28 @@
 </script>
 
 <script type="text/ng-template" id="/quiz.html">
-    Current Url {{quiz_id}}
-    <div>
-        <span ng-repeat="quiz in quiz_all">
+    <span ng-repeat="quiz in quiz_all">
         <a href="/#/quiz/{{quiz}}">
             {{$index+1}}
         </a>
-        </span>
+    </span>
+
+    <div class="container">
+
+
+        <div class="row">
+            <div class="col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-10 col-xs-offset-1" style="background-color: #e5e5f9; margin-top: 10%;">
+                <h3 style="text-align: center">Q-{{questions.question}}</h3>
+                <div style="width: 100%; margin-top: 40px">
+
+                    <div ng-repeat="option in questions.options" style="width: 100%">
+                        <input type="radio" name="user_answer" ng-model="$parent.user_answer" ng-value="{{option}}" ng-disabled="option.disabled"/>({{$index}}.) {{option.answerText}}
+                    </div>
+            </div>
+        </div>
+        </div>
     </div>
+
 </script>
 
 
@@ -161,6 +175,10 @@
 <!-- External dependencies -->
 <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.10/angular-ui-router.js"></script>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
 <!-- Own JS files -->
 <script src="javascripts/angularApp.js"></script>
 <script src="javascripts/controllers/quizcontroller.js"></script>
