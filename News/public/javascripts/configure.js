@@ -21,15 +21,20 @@ app.config([
                 templateUrl: '/posts.html',
                 controller: 'PostCtrl'
             })
-            .state('quiz', {
+            .state('quizs', {
                 url:'/quiz',
-                templateUrl: '/quiz.html',
+                templateUrl: '/quizs.html',
                 controller: "QuizCtrl",
                 resolve: {
                     postPromise: ['quiz_service', function(quiz_service) {
                         return quiz_service.getQuiz();
                     }]
                 }
+            })
+            .state('quiz', {
+                url: '/quiz/{id}',
+                templateUrl: '/quiz.html',
+                controller: "quizctrl"
             })
             .state('test', {
                 url: '/test',

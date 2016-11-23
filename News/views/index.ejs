@@ -96,12 +96,10 @@
     </form>
 </script>
 
-<script type="text/ng-template" id="/quiz.html">
-    <!--{{quizs}}-->
+<script type="text/ng-template" id="/quizs.html">
     <div ng-repeat="quiz in quizs">
         <!--{{quiz}}-->
-        <a href="/quizs/{{quiz._id}}">
-            console.log(quiz._id)
+        <a href="/#/quiz/{{quiz._id}}">
             {{quiz.question}}
         </a>
     </div>
@@ -141,6 +139,11 @@
         <p>you got {{ correctCount }} out of {{questions.length}} right</p>
 </script>
 
+<script type="text/ng-template" id="/quiz.html">
+    This is a test page
+</script>
+
+
 <div class="row">
     <div class="col-md-6 col-md-offset-3">
 
@@ -154,6 +157,8 @@
 <!-- Own JS files -->
 <script src="javascripts/angularApp.js"></script>
 <script src="javascripts/controllers/quizcontroller.js"></script>
+<script src="javascripts/controllers/quizscontroller.js"></script>
+
 <script src="javascripts/controllers/testcontroller.js"></script>
 <script src="javascripts/controllers/postcontroller.js"></script>
 <script src="javascripts/controllers/maincontroller.js"></script>
