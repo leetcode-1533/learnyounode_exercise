@@ -10,7 +10,7 @@ app.service('quiz_service', function($http) {
     this.getQuiz = function() {
         $http.get('/quiz_list').success(function(data) {
             angular.copy(data, _quiz);
-            console.log(data);
+            // console.log(data);
         });
     };
 

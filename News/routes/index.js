@@ -42,7 +42,7 @@ router.get('/test_http', function(req, res) {
     });
   });
 
-  Quiz.findOne({"_id": "58263d70444584131d257309"}, function(err, obj) {
+  Quiz.findOne({"_id": req.body}, function(err, obj) {
     var temp = obj['sql_query'];
     flowController.emit('dowork', temp);
   })
@@ -50,15 +50,6 @@ router.get('/test_http', function(req, res) {
   flowController.on('finished', function () {
     console.log('finished');
   });
-
-  // Quiz.findOne({"_id": "58263d70444584131d257309"}, function(err, obj) {
-  //   console.log(obj['sql_query']);
-  //   console.log(obj['question']);
-  //   connection.query(obj['sql_query'], function (err, rows) {
-  //         res.send({results: rows});
-  //       }
-  //   );
-  // });
 });
 
 router.post('/posts', function(req, res, next) {
@@ -117,7 +108,7 @@ var getRandomDocument = function(db, res, num_questions, callback) {
           return db.close();
         }
 
-        container.push(item);
+        container.push(item["_id"]);
 
         callback();
       });

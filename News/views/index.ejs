@@ -99,7 +99,7 @@
 <script type="text/ng-template" id="/quizs.html">
     <span ng-repeat="quiz in quizs">
         <!--{{quiz}}-->
-        <a href="/#/quiz/{{quiz._id}}">
+        <a href="/#/quiz/{{quiz}}">
             {{$index+1}}
         </a>
     </span>
@@ -140,7 +140,14 @@
 </script>
 
 <script type="text/ng-template" id="/quiz.html">
-    {{quiz_id}}
+    Current Url {{quiz_id}}
+    <div>
+        <span ng-repeat="quiz in quiz_all">
+        <a href="/#/quiz/{{quiz}}">
+            {{$index+1}}
+        </a>
+        </span>
+    </div>
 </script>
 
 
