@@ -8,6 +8,6 @@ app.controller('quizctrl', [
     '$http',
     'quiz_service',
     function($scope, $stateParams, $http, quiz_service) {
-        console.log($stateParams.id);
+        $scope.quiz_id = $stateParams.id;
     }
 ]);

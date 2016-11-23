@@ -97,12 +97,12 @@
 </script>
 
 <script type="text/ng-template" id="/quizs.html">
-    <div ng-repeat="quiz in quizs">
+    <span ng-repeat="quiz in quizs">
         <!--{{quiz}}-->
         <a href="/#/quiz/{{quiz._id}}">
-            {{quiz.question}}
+            {{$index+1}}
         </a>
-    </div>
+    </span>
 
     <form ng-submit="addQuiz()"
           style="margin-top:30px;">
@@ -140,7 +140,7 @@
 </script>
 
 <script type="text/ng-template" id="/quiz.html">
-    This is a test page
+    {{quiz_id}}
 </script>
 
 
