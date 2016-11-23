@@ -7,8 +7,8 @@ app.controller('QuizCtrl', [
     '$http',
     'quiz_service',
     function($scope, $http, quiz_service){
-        $scope.test = quiz_service.quiz;
-        console.log($scope.test);
+        $scope.quizs = quiz_service.quiz;
+        // console.log($scope.test);
 
         $scope.questions = [
             {"questionText": "Why is the sky blue?", "answers": [

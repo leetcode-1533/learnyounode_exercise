@@ -7,7 +7,7 @@ app.controller('PostCtrl', [
     'posts_factory',
     function($scope, $stateParams, posts_factory){
         $scope.post = posts_factory.posts[$stateParams.id];
-
+        
         $scope.addComment = function(){
             if(!$scope.body) {
                 return;

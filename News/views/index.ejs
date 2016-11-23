@@ -97,7 +97,15 @@
 </script>
 
 <script type="text/ng-template" id="/quiz.html">
-    {{ test }}
+    <!--{{quizs}}-->
+    <div ng-repeat="quiz in quizs">
+        <!--{{quiz}}-->
+        <a href="/quizs/{{quiz._id}}">
+            console.log(quiz._id)
+            {{quiz.question}}
+        </a>
+    </div>
+
     <form ng-submit="addQuiz()"
           style="margin-top:30px;">
         <h3>Add a new Question</h3>
