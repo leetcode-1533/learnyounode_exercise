@@ -58,9 +58,9 @@
         <label>Correct Answer SQL: </label> </br>
         <textarea ng-model = "sqlform.rightsql" id= "rightsql" cols="30" rows="3"></textarea></br>
 
-        <input type="button" ng-click="validateRight()" value="validateRight" /></br>
+        <input type="button" ng-click="validateRight(1)" value="validateRight" /></br>
         <div class="alert {{RightSqlAlertType}}" ng-show="RightSqlShow">
-                ×</button> <strong>{{RightSqlWrongMessage}}</strong>
+            </button> <strong><preline>{{RightSqlWrongMessage}}</preline></strong>
         </div>
 
         <label>Alternative Answer SQL:</label> </br>
@@ -195,6 +195,13 @@
 
     </div>
 </div>
+
+<style>
+    preline{
+        white-space: pre-line;
+    }
+</style>
+
 <!-- External dependencies -->
 <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.10/angular-ui-router.js"></script>

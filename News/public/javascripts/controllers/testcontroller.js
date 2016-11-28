@@ -15,10 +15,41 @@ app.controller('sqlform', [
 
         };
 
-        var validateRight = function() {
+
+        $scope.validateRight = function(req_length) {
+            console.log(req_length);
+
             if(!$scope.sqlform.rightsql || $scope.sqlform.rightsql=== ' '){
                 $scope.RightSqlWrongMessage = "Empty Input";
                 $scope.RightSqlShow = true;
+                $scope.RightSqlAlertType = "alert-danger";
+
+                return;
+            };
+
+            $http({
+                url: '/newquestion/validateRightSql',
+                method: 'GET',
+                params: {RightSql: $scope.sqlform.rightsql, Requiredlength:req_length}
+            }).success(function(data) {
+                $scope.RightSqlWrongMessage = "SQL Success" + "\n" + "Given Result: ".concat(data[0].answer);
+                $scope.RightSqlShow = true;
+                $scope.RightSqlAlertType = "alert-success";
+            }).error(function(data, status, headers) {
+                $scope.RightSqlWrongMessage = data;
+                $scope.RightSqlShow = true;
+                $scope.RightSqlAlertType = "alert-danger";
+            })
+        };
+
+        $scope.validateAlternative = function(req_length) {
+            console.log(req_length);
+
+            if(!$scope.sqlform.rightsql || $scope.sqlform.rightsql=== ' '){
+                $scope.RightSqlWrongMessage = "Empty Input";
+                $scope.RightSqlShow = true;
+                $scope.RightSqlAlertType = "alert-danger";
+
                 return;
             };
 
@@ -27,20 +58,14 @@ app.controller('sqlform', [
                 method: 'GET',
                 params: {RightSql: $scope.sqlform.rightsql}
             }).success(function(data) {
-                $scope.RightSqlWrongMessage = "SQL Success \n".concat(data);
+                $scope.RightSqlWrongMessage = "SQL Success" + "\n" + "Given Result: ".concat(data[0].answer);
                 $scope.RightSqlShow = true;
                 $scope.RightSqlAlertType = "alert-success";
-
-                console.log(data);
             }).error(function(data, status, headers) {
                 $scope.RightSqlWrongMessage = data;
                 $scope.RightSqlShow = true;
                 $scope.RightSqlAlertType = "alert-danger";
             })
-        };
-
-        $scope.validateRight = function($http) {
-            validateRight();
         };
     }
 ]);

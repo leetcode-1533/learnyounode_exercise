@@ -167,11 +167,12 @@ router.get('/newquestion/validateRightSql', function(req, res){
       res.status(500).send(err);
       return;
     }
-    if(row.length > 1) {
-      res.status(500).send("There Should be only One Correct Answer whereas I got: ".concat(row.length.toString()).concat(" answers"));
+    if(row.length > req.query['Requiredlength']) {
+      res.status(500).send("There Should be only One Correct Answer whereas \n I got: ".concat(row.length.toString()).concat(" answers"));
       return;
     }
     res.status(201).send(row);
+    // console.log(row);
   })
 });
 
