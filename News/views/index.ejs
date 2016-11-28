@@ -52,7 +52,7 @@
 
     <form novalidate class="simple-form">
      <label>Question String:</label> </br>
-        <textarea ng-model = "sqlform.sqlquestion" id= "sqlquestion" cols="30" rows="5"></textarea> </br>
+        <textarea ng-model = "sqlform.sqlquestion" id= "sqlquestion" cols="30" rows="3"></textarea> </br>
         <label>Correct Answer SQL: </label> </br>
         <textarea ng-model = "sqlform.rightsql" id= "rightsql" cols="30" rows="3"></textarea></br>
 
@@ -73,7 +73,24 @@
         </div>
 
         <input type="button" ng-click="reset()" value="Reset" />
-        <input type="submit" ng-click="update(user)" value="Save" />
+        <input type="submit" ng-click="upload(sqlform)" value="Upload Sql" />
+        <div class="alert {{UploadSqlAlertType}}" ng-show="UploadSqlShow">
+            <strong><preline>{{UploadSqlMessage}}</preline></strong>
+
+            <!--<div class="row">-->
+                <!--<div class="col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-10 col-xs-offset-1" style="background-color: #e5e5f9; margin-top: 10%;">-->
+                    <!--<h3 style="text-align: center">Q-{{questions.question}}</h3>-->
+                    <!--<div style="width: 100%; margin-top: 40px">-->
+
+                        <!--<div ng-repeat="option in questions.options" style="width: 100%">-->
+                            <!--<input type="radio" name="user_answer" ng-model="$parent.user_answer" ng-value="{{option}}" ng-disabled="option.disabled"/>({{$index}}.) {{option.answerText}}-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+
+        <!--</div>-->
+
     </form>
 </script>
 
@@ -164,8 +181,6 @@
     </span>
 
     <div class="container">
-
-
         <div class="row">
             <div class="col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-10 col-xs-offset-1" style="background-color: #e5e5f9; margin-top: 10%;">
                 <h3 style="text-align: center">Q-{{questions.question}}</h3>

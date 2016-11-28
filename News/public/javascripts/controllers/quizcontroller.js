@@ -32,9 +32,7 @@ app.controller('quizctrl', [
                         {"answerText":data['answer'][3]['options'], "correct": false, "disabled": false}
                     ]
                 };
-                // random_number(temp_question['options']);
                 for(var i=0;i<temp_question['options'].length;i++){
-                    // console.log(temp_question[$scope.question]['options'].correct);
                     if(temp_question['options'][i].correct == true){
                         temp_question['correct_option'] = i;
                     }
