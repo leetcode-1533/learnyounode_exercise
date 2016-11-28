@@ -8,6 +8,7 @@ app.controller('sqlform', [
     function($scope, $http, posts_factory) {
         var RightSqlAnswer = null;
         var AlternativeSqlAnswer = null;
+        $scope.sqlform = {};
 
         $scope.reset = function() {
             $scope.sqlform = {};
