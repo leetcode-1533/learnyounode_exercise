@@ -11,27 +11,36 @@ app.controller('sqlform', [
         $scope.reset = function() {
             console.log($scope.sqlform);
             $scope.sqlform = {};
-            $scope.RightSqlWrong = false;
+            $scope.RightSqlShow = false;
+
         };
 
         var validateRight = function() {
+            if(!$scope.sqlform.rightsql || $scope.sqlform.rightsql=== ' '){
+                $scope.RightSqlWrongMessage = "Empty Input";
+                $scope.RightSqlShow = true;
+                return;
+            };
+
             $http({
                 url: '/newquestion/validateRightSql',
                 method: 'GET',
-                params: {sqlstr: $scope.sqlform.rightsql}
+                params: {RightSql: $scope.sqlform.rightsql}
             }).success(function(data) {
-                console.log("Success");
+                $scope.RightSqlWrongMessage = "SQL Success \n".concat(data);
+                $scope.RightSqlShow = true;
+                $scope.RightSqlAlertType = "alert-success";
+
+                console.log(data);
             }).error(function(data, status, headers) {
-                // alert(status);
                 $scope.RightSqlWrongMessage = data;
-                $scope.RightSqlWrong = true;
-                // alert(data);
-                // console.log("error");
+                $scope.RightSqlShow = true;
+                $scope.RightSqlAlertType = "alert-danger";
             })
         };
 
         $scope.validateRight = function($http) {
-            console.log(validateRight());
+            validateRight();
         };
     }
 ]);

@@ -159,8 +159,20 @@ router.get('/posts/:post', function(req, res){
 })
 
 router.get('/newquestion/validateRightSql', function(req, res){
-  console.log(req.params);
-  res.status(500).send("Something Wrong");
+  // console.log(req.params);
+  // console.log(req.query['RightSql']);
+  // console.log(req.body);
+  connection.query(req.query['RightSql'], function(err, row) {
+    if(err) {
+      res.status(500).send(err);
+      return;
+    }
+    if(row.length > 1) {
+      res.status(500).send("There Should be only One Correct Answer whereas I got: ".concat(row.length.toString()).concat(" answers"));
+      return;
+    }
+    res.status(201).send(row);
+  })
 });
 
 module.exports = router;

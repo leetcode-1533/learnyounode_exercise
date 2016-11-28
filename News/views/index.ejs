@@ -59,8 +59,8 @@
         <textarea ng-model = "sqlform.rightsql" id= "rightsql" cols="30" rows="3"></textarea></br>
 
         <input type="button" ng-click="validateRight()" value="validateRight" /></br>
-        <div class="alert alert-danger" ng-show="RightSqlWrong">
-                ×</button> <strong>WrongSQL! {{RightSqlWrongMessage}}</strong>
+        <div class="alert {{RightSqlAlertType}}" ng-show="RightSqlShow">
+                ×</button> <strong>{{RightSqlWrongMessage}}</strong>
         </div>
 
         <label>Alternative Answer SQL:</label> </br>
