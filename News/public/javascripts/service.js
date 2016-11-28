@@ -17,10 +17,10 @@ app.service('posts_factory', function($http) {
             this.posts.push(data);
         });
     };
-    this.test_func = function() {
-        return $http.get('/test_http').success(function(data) {
-            angular.copy(data, _test);
-            console.log(data[0]);
-        });
-    }
+    // this.test_func = function() {
+    //     return $http.get('/test_http').success(function(data) {
+    //         angular.copy(data, _test);
+    //         console.log(data[0]);
+    //     });
+    // }
 });

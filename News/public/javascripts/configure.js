@@ -36,15 +36,15 @@ app.config([
                 templateUrl: '/quiz.html',
                 controller: "quizctrl"
             })
-            .state('test', {
-                url: '/test',
-                templateUrl: '/test.html',
-                controller: 'test',
-                resolve: {
-                    postPromise: ['posts_factory', function(posts_factory) {
-                        return posts_factory.test_func();
-                    }]
-                }
+            .state('sqlform', {
+                url: '/newquestion',
+                templateUrl: '/sqlform.html',
+                controller: 'sqlform'
+                // resolve: {
+                //     postPromise: ['posts_factory', function(posts_factory) {
+                //         return posts_factory.test_func();
+                //     }]
+                // }
             });
 
         $urlRouterProvider.otherwise('home');

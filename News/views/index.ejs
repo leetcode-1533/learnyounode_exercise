@@ -47,17 +47,27 @@
     </form>
 </script>
 
-<script type="text/ng-template" id="/test.html">
-    <div class="page-header">
-        <h3>
-            {{test}}
-        </h3>
-    </div>
-        <div ng-repeat="a in test['results']">
-            <!--{{a}}}-->
-            {{a}}
-            <!--<div -->
-        </div>
+<script type="text/ng-template" id="/sqlform.html">
+    <h3>Upload New Question</h3>
+    <form novalidate class="simple-form">
+        <label>Question String: <input type="text" ng-model="sqlform.name" /></label><br />
+        <label>Correct Answer SQL: <input type="text" ng-model="sqlform.email" /></label><br />
+        <label>Option Answer SQL: <input type="text" ng-model="sqlform.test"></label><br />
+        <!--Gender: <label><input type="radio" ng-model="user.gender" value="male" />male</label>-->
+        <!--<label><input type="radio" ng-model="user.gender" value="female" />female</label><br />-->
+        <input type="button" ng-click="reset()" value="Reset" />
+        <input type="submit" ng-click="update(user)" value="Save" />
+    </form>
+    <!--<div class="page-header">-->
+        <!--<h3>-->
+            <!--{{test}}-->
+        <!--</h3>-->
+    <!--</div>-->
+        <!--<div ng-repeat="a in test['results']">-->
+            <!--&lt;!&ndash;{{a}}}&ndash;&gt;-->
+            <!--{{a}}-->
+            <!--&lt;!&ndash;<div &ndash;&gt;-->
+        <!--</div>-->
         <!--{{var1}}: {{var2}}-->
 </script>
 
