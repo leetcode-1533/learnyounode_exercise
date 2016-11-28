@@ -155,24 +155,19 @@ router.param('post', function(req, res, next, id){
 
 router.get('/posts/:post', function(req, res){
   res.send(req.params);
-  // res.json(req.post);
 })
 
 router.get('/newquestion/validateRightSql', function(req, res){
-  // console.log(req.params);
-  // console.log(req.query['RightSql']);
-  // console.log(req.body);
   connection.query(req.query['RightSql'], function(err, row) {
     if(err) {
       res.status(500).send(err);
       return;
     }
-    if(row.length > req.query['Requiredlength']) {
-      res.status(500).send("There Should be only One Correct Answer whereas \n I got: ".concat(row.length.toString()).concat(" answers"));
+    if(row.length != req.query['Requiredlength']) {
+      res.status(500).send("There Should be ".concat(req.query['Requiredlength']) + " Correct Answer whereas \n I got: ".concat(row.length.toString()).concat(" answers"));
       return;
     }
     res.status(201).send(row);
-    // console.log(row);
   })
 });
 

@@ -49,11 +49,9 @@
 
 <script type="text/ng-template" id="/sqlform.html">
     <h3>Upload New Question</h3>
+
     <form novalidate class="simple-form">
-        <!--<label>Question String: <input type="text" ng-model="sqlform.name" /></label><br />-->
-        <!--<label>Correct Answer SQL: <input type="text" ng-model="sqlform.email" /></label><br />-->
-        <!--<label>Option Answer SQL: </label><br /><input type="textarea" cols="30" rows="10" ng-model="sqlform.test">-->
-        <label>Question String:</label> </br>
+     <label>Question String:</label> </br>
         <textarea ng-model = "sqlform.sqlquestion" id= "sqlquestion" cols="30" rows="5"></textarea> </br>
         <label>Correct Answer SQL: </label> </br>
         <textarea ng-model = "sqlform.rightsql" id= "rightsql" cols="30" rows="3"></textarea></br>
@@ -65,22 +63,18 @@
 
         <label>Alternative Answer SQL:</label> </br>
         <textarea ng-model = "sqlform.wrongsql" id= "wrongsql" cols="30" rows="3"></textarea></br>
-        <!--Gender: <label><input type="radio" ng-model="user.gender" value="male" />male</label>-->
-        <!--<label><input type="radio" ng-model="user.gender" value="female" />female</label><br />-->
+        <input type="button" ng-click="validateAlter(3)" value="validateAlter" /></br>
+
+        <div class="alert {{AlterSqlAlertType}}" ng-show="AlterSqlShow">
+            <strong><preline>{{AlterSqlWrongMessage}}</preline></strong>
+            <li ng-repeat="item in alternativeData">
+                {{item["options"]}}
+            </li>
+        </div>
+
         <input type="button" ng-click="reset()" value="Reset" />
         <input type="submit" ng-click="update(user)" value="Save" />
     </form>
-    <!--<div class="page-header">-->
-        <!--<h3>-->
-            <!--{{test}}-->
-        <!--</h3>-->
-    <!--</div>-->
-        <!--<div ng-repeat="a in test['results']">-->
-            <!--&lt;!&ndash;{{a}}}&ndash;&gt;-->
-            <!--{{a}}-->
-            <!--&lt;!&ndash;<div &ndash;&gt;-->
-        <!--</div>-->
-        <!--{{var1}}: {{var2}}-->
 </script>
 
 <script type="text/ng-template" id="/posts.html">
