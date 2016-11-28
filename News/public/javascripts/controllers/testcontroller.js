@@ -86,7 +86,7 @@ app.controller('sqlform', [
             })
         };
 
-        $scope.upload = function(sqlform) {
+        $scope.sqldemo = function(sqlform) {
             console.log(sqlform);
             $scope.UploadSqlShow = true;
 
@@ -97,8 +97,6 @@ app.controller('sqlform', [
             } else {
                 $scope.UploadSqlAlertType = "success";
 
-                // console.log(RightSqlAnswer);
-                // console.log(AlternativeSqlAnswer);
                 $scope.questions =
                 {"question": $scope.sqlform.sqlquestion,
                     "correct_answer": RightSqlAnswer,
@@ -110,6 +108,21 @@ app.controller('sqlform', [
                     ]
                 };
                 console.log($scope.questions);
+            }
+        }
+
+        $scope.sqlUpload = function(sqlform) {
+            if(!((RightSqlAnswer!=null) && (AlternativeSqlAnswer != null))) {
+                console.log("Data Not Ready");
+            } else {
+                var dataobject = {
+                    options: sqlform.wrongsql,
+                    question: sqlform.sqlquestion,
+                    questionquery: sqlform.rightsql
+                };
+                $http.post('/newquestion/addquiz', dataobject).then(function(data) {
+                    console.log("Upload Success");
+                });
             }
         }
     }
