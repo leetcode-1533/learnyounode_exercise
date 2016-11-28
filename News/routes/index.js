@@ -158,4 +158,9 @@ router.get('/posts/:post', function(req, res){
   // res.json(req.post);
 })
 
+router.get('/newquestion/validateRightSql', function(req, res){
+  console.log(req.params);
+  res.status(500).send("Something Wrong");
+});
+
 module.exports = router;

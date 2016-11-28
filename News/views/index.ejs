@@ -50,9 +50,21 @@
 <script type="text/ng-template" id="/sqlform.html">
     <h3>Upload New Question</h3>
     <form novalidate class="simple-form">
-        <label>Question String: <input type="text" ng-model="sqlform.name" /></label><br />
-        <label>Correct Answer SQL: <input type="text" ng-model="sqlform.email" /></label><br />
-        <label>Option Answer SQL: <input type="text" ng-model="sqlform.test"></label><br />
+        <!--<label>Question String: <input type="text" ng-model="sqlform.name" /></label><br />-->
+        <!--<label>Correct Answer SQL: <input type="text" ng-model="sqlform.email" /></label><br />-->
+        <!--<label>Option Answer SQL: </label><br /><input type="textarea" cols="30" rows="10" ng-model="sqlform.test">-->
+        <label>Question String:</label> </br>
+        <textarea ng-model = "sqlform.sqlquestion" id= "sqlquestion" cols="30" rows="5"></textarea> </br>
+        <label>Correct Answer SQL: </label> </br>
+        <textarea ng-model = "sqlform.rightsql" id= "rightsql" cols="30" rows="3"></textarea></br>
+
+        <input type="button" ng-click="validateRight()" value="validateRight" /></br>
+        <div class="alert alert-danger" ng-show="RightSqlWrong">
+                ×</button> <strong>WrongSQL! {{RightSqlWrongMessage}}</strong>
+        </div>
+
+        <label>Alternative Answer SQL:</label> </br>
+        <textarea ng-model = "sqlform.wrongsql" id= "wrongsql" cols="30" rows="3"></textarea></br>
         <!--Gender: <label><input type="radio" ng-model="user.gender" value="male" />male</label>-->
         <!--<label><input type="radio" ng-model="user.gender" value="female" />female</label><br />-->
         <input type="button" ng-click="reset()" value="Reset" />
