@@ -103,42 +103,16 @@ router.get('/posts', function(req, res, next){
   });
 });
 
-var getRandomDocument = function(db, res, num_questions, callback) {
-  var questions = db.collection('questions');
-  var query = {};
-  var cursor = questions.find(query);
-
-  // var total, random;
-    questions.count(function(err, count) {
-      var container = [];
-
-      var random = Math.floor(Math.random()*count);
-      cursor.sort({_id : -1});
-      cursor.skip(random);
-      cursor.limit(num_questions);
-
-      cursor.each(function(err, item) {
-        if(err) throw err;
-
-        if(item == null) {
-          res.send(container);
-          return db.close();
-        }
-
-        container.push(item["_id"]);
-
-        callback();
-      });
-  });
-};
-
 router.get('/quiz_list', function(req, res, next) {
   MongoClinet.connect(url, function(err, db) {
     if (err) throw err;
 
-    getRandomDocument(db, res, 3, function() {
-      // This is the callback function
-    });
+      var questions = db.collection('questions');
+      questions.aggregate([ { $sample: { size: 10} }, {$project:{_id: 1}}]).toArray(function (err, docs) {
+            // console.log(docs);
+          res.json(docs);
+          db.close();
+      });
   });
 });
 
