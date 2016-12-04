@@ -173,22 +173,24 @@
 </script>
 
 <script type="text/ng-template" id="/quiz.html">
-    <!--{{quiz_all}}-->
+    {{quiz_all}}
     <span ng-repeat="quiz in quiz_all">
         <a href="/#/quiz/{{quiz}}">
             {{$index+1}}
         </a>
     </span>
-
     <div class="container">
         <div class="row">
             <div class="col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-10 col-xs-offset-1" style="background-color: #e5e5f9; margin-top: 10%;">
-                <h3 style="text-align: center">Q-{{questions.question}}</h3>
+                <h3 style="text-align: center">Q-{{question_order+1}}{{questions.question}}</h3>
                 <div style="width: 100%; margin-top: 40px">
 
-                    <div ng-repeat="option in questions.options" style="width: 100%">
-                        <input type="radio" name="user_answer" ng-model="$parent.user_answer" ng-value="{{option}}" ng-disabled="option.disabled"/>({{$index | numberToAlphabet}}.) {{option.answerText}}
-                    </div>
+                <div ng-repeat="option in questions.options" style="width: 100%">
+                    <input type="radio" name="user_answer" ng-model="$parent.user_answer" ng-value="{{option}}" ng-disabled="option.disabled"/>({{$index | numberToAlphabet}}.) {{option.answerText}}
+                </div>
+                <div style="float: left; width: 50%; margin-top: 5%">
+                    <button class="btn btn-info" style="float: right; width: 50%; margin: 5%" ng-click="get_next_question()" ng-disabled="user_answer == ''">Next</button>
+                </div>
             </div>
         </div>
         </div>

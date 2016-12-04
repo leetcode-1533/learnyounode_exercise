@@ -9,13 +9,16 @@ app.controller('quizctrl', [
     'quiz_service',
     function($scope, $stateParams, $http, quiz_service) {
         $scope.quiz_id = $stateParams.id;
-        $scope.quiz_all = quiz_service.quiz;
+        var quiz_all = quiz_service.quiz;
+        // var quiz_all;
+        // angular.copy(quiz_service.quiz, quiz_all);
+        $scope.question_order = -1;
 
-        $scope.getCurrentQuestion = function() {
+        $scope.getQuestion = function(question_order) {
             $http({
                 url: '/test_http',
                 method: "GET",
-                params: {question_id: $scope.quiz_id}
+                params: {question_id: question_order}
             })
             .success(function (data) {
                 // console.log(data);
@@ -32,21 +35,21 @@ app.controller('quizctrl', [
                         {"answerText":data['answer'][3]['options'], "correct": false, "disabled": false}
                     ]
                 };
-                for(var i=0;i<temp_question['options'].length;i++){
-                    if(temp_question['options'][i].correct == true){
-                        temp_question['correct_option'] = i;
-                    }
-                }
-                // console.log(temp_question);
                 $scope.questions = temp_question;
-                console.log($scope.questions);
             })
             .error(function (data) {
                 console.log('Error:'+data);
             });
         }
 
-        $scope.getCurrentQuestion();
+        $scope.get_next_question = function() {
+            $scope.question_order = $scope.question_order + 1;
+            // console.log(quiz_all[question_order]);
+            console.log(quiz_all[$scope.question_order]);
+            $scope.getQuestion(quiz_all[$scope.question_order]);
+            console.log($scope.questions);
+        }
+        $scope.getQuestion(quiz_all[$scope.question_order]);
     }
 ]);
 

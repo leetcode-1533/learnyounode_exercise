@@ -49,8 +49,18 @@ router.get('/test_http', function(req, res, next) {
 
   MongoClinet.connect(url, function(err, db) {
     var questions = db.collection('questions');
+      console.log(req.query);
     questions.findOne({_id: ObjectId(req.query.question_id)}, function(err, obj) {
-      flowController.emit('dowork', obj);
+        if(err) {
+            console.log("Mongo Error");
+            console.log(err);
+        }
+        if (obj) {
+            flowController.emit('dowork', obj);
+        } else {
+            console.log("No Result");
+            // flowController.emit('dowork', obj);
+        }
     })
   })
 

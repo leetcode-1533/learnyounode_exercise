@@ -34,17 +34,17 @@ app.config([
             .state('quiz', {
                 url: '/quiz/{id}',
                 templateUrl: '/quiz.html',
-                controller: "quizctrl"
+                controller: "quizctrl",
+                resolve: {
+                    postPromise: ['quiz_service', function(quiz_service) {
+                        return quiz_service.getQuiz();
+                    }]
+                }
             })
             .state('sqlform', {
                 url: '/newquestion',
                 templateUrl: '/sqlform.html',
                 controller: 'sqlform'
-                // resolve: {
-                //     postPromise: ['posts_factory', function(posts_factory) {
-                //         return posts_factory.test_func();
-                //     }]
-                // }
             });
 
         $urlRouterProvider.otherwise('home');
