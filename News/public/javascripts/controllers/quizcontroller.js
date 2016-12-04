@@ -11,6 +11,8 @@ app.controller('quizctrl', [
         $scope.quiz_id = $stateParams.id;
         $scope.quiz_all = quiz_service.quiz;
 
+        console.log($scope.quiz_all);
+
         $scope.getCurrentQuestion = function() {
             $http({
                 url: '/test_http',

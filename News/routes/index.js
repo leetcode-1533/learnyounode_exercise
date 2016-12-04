@@ -126,7 +126,7 @@ router.get('/quiz_list', function(req, res, next) {
   MongoClinet.connect(url, function(err, db) {
     if (err) throw err;
 
-    getRandomDocument(db, res, 3, function() {
+    getRandomDocument(db, res, 10, function() {
       // This is the callback function
     });
   });
